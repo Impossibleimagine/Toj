@@ -4,6 +4,7 @@
 #define int long long
 using namespace std;
 //string S="ABCDEFGHIJKLMNOPQRSTUVWXYZ",s="abcdefghijklmnopqrstuvwxyz";
+int arr[1000010];
 
 signed main()
 {
@@ -12,25 +13,23 @@ signed main()
     //freopen("oput.txt","w",stdout);
     int n,m;
     cin>>n;
-    vector<int> a;
     for(int i=0;i<n;i++){
-        int num;
-        cin>>num;
-        a.emplace_back(num);
+        cin>>arr[i];
     }
-    sort(a.begin(),a.end());
+    sort(arr,arr+n);
     cin>>m;
-    for(int i=0;i<m;i++){
-        int inp=0;
-        cin>>inp;
-        auto big = lower_bound(a.begin(),a.end(),inp);
-        auto small = big-1;
-        if(*big==inp) cout<<inp<<'\n';
+    while(m--){
+        int tar;
+        cin>>tar;
+        auto it = lower_bound(arr,arr+n,tar);
+        if(*it == tar) cout<<tar;
         else{
-            if(big==a.begin()) cout<<"no ";
-            else cout<<*small<<" ";
-            if(big==a.end()) cout<<"no";
-            else cout<<*big<<'\n';
+            if((it-arr-1)==-1) cout<<"no ";
+            else cout<<*(it-1)<<' ';
+            if((it-arr)==n) cout<<"no";
+            else cout<<*it;
         }
+        cout<<'\n';
     }
 }
+
